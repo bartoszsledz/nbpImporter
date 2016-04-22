@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="KonkursStreamSoft" />
+        <module name="NBPImporter" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="KonkursStreamSoft" target="1.7" />
+      <module name="NBPImporter" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
