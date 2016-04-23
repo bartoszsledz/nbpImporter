@@ -6,9 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54dbb077-597a-4c12-a658-01664f2f6f94" name="Default" comment="Added">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/NBPImporter_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/NBPImporter_jar.xml" />
+    <list default="true" id="54dbb077-597a-4c12-a658-01664f2f6f94" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/NBPImporter_jar/NBPImporter.jar" afterPath="$PROJECT_DIR$/out/artifacts/NBPImporter_jar/NBPImporter.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CurrencyExchangeImporter-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/CurrencyExchangeImporter-1.0-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-businessLogic.ParserDataTest.xml" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-businessLogic.ParserDataTest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/businessLogic.ParserDataTest.txt" afterPath="$PROJECT_DIR$/target/surefire-reports/businessLogic.ParserDataTest.txt" />
     </list>
     <ignored path="KonkursStreamSoft.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,8 +61,8 @@
       <file leaf-file-name="ParserData.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/ParserData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="398">
+              <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1928#1929#0" expanded="true" />
@@ -938,7 +942,7 @@
       <workItem from="1461347056436" duration="550000" />
       <workItem from="1461347652012" duration="140000" />
       <workItem from="1461393577524" duration="5687000" />
-      <workItem from="1461416478068" duration="5130000" />
+      <workItem from="1461416478068" duration="5250000" />
     </task>
     <task id="LOCAL-00001" summary="Added project to repo.">
       <created>1461346821649</created>
@@ -989,7 +993,14 @@
       <option name="project" value="LOCAL" />
       <updated>1461423971140</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added artifacs with .jar file.">
+      <created>1461424259784</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1461424259784</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1025,7 +1036,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90096000" />
+    <option name="totallyTimeSpent" value="90216000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1086,7 +1097,8 @@
     <MESSAGE value="Deleted snapshot.jar." />
     <MESSAGE value="Added NBPImporter.jar file and little changes." />
     <MESSAGE value="Added field with table name from NBP." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added field with table name from NBP." />
+    <MESSAGE value="Added artifacs with .jar file." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added artifacs with .jar file." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1393,8 +1405,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/ParserData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        <state relative-caret-position="398">
+          <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1928#1929#0" expanded="true" />
