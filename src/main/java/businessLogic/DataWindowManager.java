@@ -41,6 +41,7 @@ public class DataWindowManager {
                     createTableModel();
                     refreshTable();
                     showDataInTable();
+                    dataWindow.getTableNameField().setText(parserData.getTableName());
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -60,7 +61,7 @@ public class DataWindowManager {
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     File fileToSave = jFileChooser.getSelectedFile();
                     try {
-                        FileUtils.writeStringToFile(fileToSave, parserData.getListOfExchangeRates());
+                        FileUtils.writeStringToFile(fileToSave, parserData.getListOfExchangeRates(), "UTF-8");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

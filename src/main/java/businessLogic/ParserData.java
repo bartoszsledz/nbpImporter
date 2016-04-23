@@ -16,6 +16,7 @@ public class ParserData {
     private Elements inputElements;
     private Document document;
     private ArrayList<ExchangeRates> listOfExchangeRates;
+    private ExchangeRates exchangeRates;
 
     public ParserData(String source) {
         this.source = source;
@@ -25,17 +26,18 @@ public class ParserData {
 
         listOfExchangeRates = new ArrayList<>();
         importData();
+
         for (Element row : inputElements) {
             Elements elements = row.select("td");
-            ExchangeRates exchangeRates = new ExchangeRates();
+            exchangeRates = new ExchangeRates();
 
             exchangeRates.setCurrency(elements.get(TableSections.CURRENCY).text());
             exchangeRates.setCode(elements.get(TableSections.CODE).text());
             exchangeRates.setMidRate(Double.parseDouble(elements.get(TableSections.MID_RATE).text()));
             listOfExchangeRates.add(exchangeRates);
         }
+        saveTableName();
         return listOfExchangeRates;
-
     }
 
     private void importData() {
@@ -51,5 +53,14 @@ public class ParserData {
             tmp.add(exchangeRates.toString());
         }
         return tmp.toString();
+    }
+
+    public void saveTableName() {
+        exchangeRates.setTableName(document.select("p[class=\"nag\"]").text());
+        exchangeRates.getTableName();
+    }
+
+    public String getTableName() {
+        return exchangeRates.getTableName();
     }
 }

@@ -21,7 +21,7 @@ public class DataWindow {
     private DefaultTableModel model;
     private JComboBox<WebPages> comboBox;
     private JLabel author;
-    private JTextField textField;
+    private JTextField pageField, tableNameField;
 
     WebPages webPages;
 
@@ -50,7 +50,8 @@ public class DataWindow {
         clearButton = new JButton("Clear");
         author = new JLabel("Created by Bartosz Śledź 2016");
         comboBox = new JComboBox();
-        textField = new JTextField();
+        pageField = new JTextField();
+        tableNameField = new JTextField();
         model = new DefaultTableModel();
         table = new JTable(model);
     }
@@ -74,7 +75,7 @@ public class DataWindow {
         comboBox.addItem(WebPages.TableB_EN);
         comboBox.addItem(WebPages.TableA_PL);
         comboBox.addItem(WebPages.TableB_PL);
-        comboBox.setBounds(10, 60, 400, 25);
+        comboBox.setBounds(315, 60, 95, 25);
         frame.getContentPane().add(comboBox);
     }
 
@@ -100,9 +101,13 @@ public class DataWindow {
     }
 
     private void fieldsSettings() {
-        textField.setBounds(10, 25, 400, 25);
-        textField.setEditable(false);
-        frame.getContentPane().add(textField);
+        pageField.setBounds(10, 25, 400, 25);
+        pageField.setEditable(false);
+        frame.getContentPane().add(pageField);
+
+        tableNameField.setBounds(10, 60, 300, 25);
+        tableNameField.setEditable(false);
+        frame.getContentPane().add(tableNameField);
     }
 
     private void labelsSettings() {
@@ -123,7 +128,7 @@ public class DataWindow {
     }
 
     public void setTextOnTextField() {
-        textField.setText(webPages.getPage());
+        pageField.setText(webPages.getPage());
     }
 
     public void setVisibleFrame() {
@@ -152,6 +157,10 @@ public class DataWindow {
 
     public JFrame getFrame() {
         return frame;
+    }
+
+    public JTextField getTableNameField(){
+        return tableNameField;
     }
 
     public String getSourceUrl() {

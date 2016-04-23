@@ -2,6 +2,7 @@ package dataLayer;
 
 public class ExchangeRates {
 
+    private String tableName;
     private String currency;
     private String code;
     private double midRate;
@@ -13,6 +14,14 @@ public class ExchangeRates {
         setCurrency(currency);
         setCode(code);
         setMidRate(midRate);
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
     public String getCurrency() {
