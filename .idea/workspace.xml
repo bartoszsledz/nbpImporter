@@ -6,23 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54dbb077-597a-4c12-a658-01664f2f6f94" name="Default" comment="Added NBPImporter.jar file and little changes.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CurrencyExchangeImporter-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/CurrencyExchangeImporter-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/businessLogic/DataWindowManager$1.class" afterPath="$PROJECT_DIR$/target/classes/businessLogic/DataWindowManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/businessLogic/DataWindowManager$2.class" afterPath="$PROJECT_DIR$/target/classes/businessLogic/DataWindowManager$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/businessLogic/DataWindowManager$3.class" afterPath="$PROJECT_DIR$/target/classes/businessLogic/DataWindowManager$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/businessLogic/DataWindowManager.class" afterPath="$PROJECT_DIR$/target/classes/businessLogic/DataWindowManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/businessLogic/ParserData.class" afterPath="$PROJECT_DIR$/target/classes/businessLogic/ParserData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/dataLayer/ExchangeRates.class" afterPath="$PROJECT_DIR$/target/classes/dataLayer/ExchangeRates.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/presentationLayer/DataWindow.class" afterPath="$PROJECT_DIR$/target/classes/presentationLayer/DataWindow.class" />
+    <list default="true" id="54dbb077-597a-4c12-a658-01664f2f6f94" name="Default" comment="Added">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/NBPImporter_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/NBPImporter_jar.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/businessLogic/DataWindowManager.java" afterPath="$PROJECT_DIR$/src/main/java/businessLogic/DataWindowManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/businessLogic/ParserData.java" afterPath="$PROJECT_DIR$/src/main/java/businessLogic/ParserData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dataLayer/ExchangeRates.java" afterPath="$PROJECT_DIR$/src/main/java/dataLayer/ExchangeRates.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/presentationLayer/DataWindow.java" afterPath="$PROJECT_DIR$/src/main/java/presentationLayer/DataWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-businessLogic.ParserDataTest.xml" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-businessLogic.ParserDataTest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/businessLogic.ParserDataTest.txt" afterPath="$PROJECT_DIR$/target/surefire-reports/businessLogic.ParserDataTest.txt" />
     </list>
     <ignored path="KonkursStreamSoft.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,8 +57,8 @@
       <file leaf-file-name="ParserData.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/ParserData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="18" column="39" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="39" />
+            <state relative-caret-position="296">
+              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1928#1929#0" expanded="true" />
@@ -423,7 +409,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
@@ -952,7 +938,7 @@
       <workItem from="1461347056436" duration="550000" />
       <workItem from="1461347652012" duration="140000" />
       <workItem from="1461393577524" duration="5687000" />
-      <workItem from="1461416478068" duration="4764000" />
+      <workItem from="1461416478068" duration="5130000" />
     </task>
     <task id="LOCAL-00001" summary="Added project to repo.">
       <created>1461346821649</created>
@@ -996,7 +982,14 @@
       <option name="project" value="LOCAL" />
       <updated>1461347772389</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added field with table name from NBP.">
+      <created>1461423971140</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1461423971140</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1032,7 +1025,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89730000" />
+    <option name="totallyTimeSpent" value="90096000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1045,7 +1038,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.4978678" order="11" side_tool="false" content_ui="tabs" />
@@ -1053,7 +1046,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3726977" sideWeight="0.58742005" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24786781" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24786781" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3726977" sideWeight="0.41257995" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1092,7 +1085,8 @@
     <MESSAGE value="Added project to repo." />
     <MESSAGE value="Deleted snapshot.jar." />
     <MESSAGE value="Added NBPImporter.jar file and little changes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added NBPImporter.jar file and little changes." />
+    <MESSAGE value="Added field with table name from NBP." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added field with table name from NBP." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1399,8 +1393,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/ParserData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="18" column="39" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="39" />
+        <state relative-caret-position="296">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1928#1929#0" expanded="true" />
