@@ -70,12 +70,16 @@ public class ParserData {
     }
 
     /**
-     * This method gets the name of the table from web page.
+     * This method sets the name of the table from web page.
      */
     public void saveTableName() {
         exchangeRates.setTableName(document.select("p[class=\"nag\"]").text());
     }
 
+    /**
+     * This method gets the name of the table.
+     * @return table name.
+     */
     public String getTableName() {
         return exchangeRates.getTableName();
     }
