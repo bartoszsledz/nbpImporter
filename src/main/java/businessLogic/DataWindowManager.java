@@ -13,12 +13,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Manager class for {@link DataWindow}.
+ */
 public class DataWindowManager {
 
     private DefaultTableModel model;
 
-    ParserData parserData;
-    DataWindow dataWindow;
+    private ParserData parserData;
+    private DataWindow dataWindow;
 
     public DataWindowManager(DataWindow dataWindow) {
         this.dataWindow = dataWindow;
@@ -95,6 +98,7 @@ public class DataWindowManager {
                 model.addRow(row);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

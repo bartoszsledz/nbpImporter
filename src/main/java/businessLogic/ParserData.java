@@ -10,6 +10,9 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
+/**
+ * The main class responsible for the data is converted into object {@link ExchangeRates}.
+ */
 public class ParserData {
 
     private final String source;
@@ -18,12 +21,19 @@ public class ParserData {
     private ArrayList<ExchangeRates> listOfExchangeRates;
     private ExchangeRates exchangeRates;
 
+    /**
+     * This is the constructor who gets all the code page as String from {@link DownloadData} class.
+     * @param source - page source in the form of String.
+     */
     public ParserData(String source) {
         this.source = source;
     }
 
+    /**
+     * This is the main method converts the data to objects {@link ExchangeRates}.
+     * @return a list of exchange rates from web page.
+     */
     public ArrayList<ExchangeRates> convertToObject() {
-
         listOfExchangeRates = new ArrayList<>();
         importData();
 
@@ -47,6 +57,10 @@ public class ParserData {
         inputElements.remove(0);
     }
 
+    /**
+     * This method provides a formatted list of data.
+     * @return a formatted list of data.
+     */
     public String getListOfExchangeRates() {
         StringJoiner tmp = new StringJoiner("");
         for (ExchangeRates exchangeRates : listOfExchangeRates) {
@@ -55,6 +69,9 @@ public class ParserData {
         return tmp.toString();
     }
 
+    /**
+     * This method gets the name of the table from web page.
+     */
     public void saveTableName() {
         exchangeRates.setTableName(document.select("p[class=\"nag\"]").text());
     }

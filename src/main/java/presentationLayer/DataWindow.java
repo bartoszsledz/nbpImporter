@@ -7,7 +7,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Main class responsible for the view.
+ * Class contains definitions the fields, buttons etc. necessary for the proper display data.
+ */
 public class DataWindow {
 
     private final int WIDTH = 650;

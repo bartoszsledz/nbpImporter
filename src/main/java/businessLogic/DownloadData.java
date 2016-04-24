@@ -6,11 +6,20 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+/**
+ * Base class for importers which read data from page.
+ * Class returns for {@link ParserData} the read page in the form of String.
+ */
 public class DownloadData {
 
     private final String sourceContent;
 
-    protected DownloadData(String sourcePath) throws FileNotFoundException {
+    /**
+     * Constructor , which gets the address of the page.
+     * @param sourcePath - address.
+     * @throws FileNotFoundException when the path is invalid.
+     */
+    DownloadData(String sourcePath) throws FileNotFoundException {
         sourceContent = getDataFromSource(sourcePath);
     }
 

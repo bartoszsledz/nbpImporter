@@ -10,6 +10,12 @@ public class ExchangeRates {
     public ExchangeRates() {
     }
 
+    /**
+     * This class stores information about exchange rates from page.
+     * @param currency - currency name.
+     * @param code - currency code.
+     * @param midRate - average exchange rate.
+     */
     public ExchangeRates(String currency, String code, double midRate) {
         setCurrency(currency);
         setCode(code);
