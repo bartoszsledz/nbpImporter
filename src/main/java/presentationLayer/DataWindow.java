@@ -19,12 +19,12 @@ public class DataWindow {
     private JFrame frame;
     private JPanel panel;
     private JScrollPane scrollPane;
-    private JButton downloadButton, saveButton, clearButton;
+    private JButton downloadButton, saveButton, clearButton, searchBaseButton;
     private JTable table;
     private DefaultTableModel model;
     private JComboBox<WebPages> comboBox;
-    private JLabel author;
-    private JTextField pageField, tableNameField;
+    private JLabel author, searchLabel;
+    private JTextField pageField, tableNameField, searchField;
 
     WebPages webPages;
 
@@ -48,12 +48,15 @@ public class DataWindow {
         frame = new JFrame("ImporterNBP");
         panel = new JPanel();
         scrollPane = new JScrollPane();
+        searchBaseButton = new JButton("Search");
         downloadButton = new JButton("Download");
         saveButton = new JButton("Save to file");
         clearButton = new JButton("Clear");
         author = new JLabel("Created by Bartosz Śledź 2016");
+        searchLabel = new JLabel("np: 2016-11-06");
         comboBox = new JComboBox();
         pageField = new JTextField();
+        searchField = new JTextField();
         tableNameField = new JTextField();
         model = new DefaultTableModel();
         table = new JTable(model);
@@ -74,17 +77,20 @@ public class DataWindow {
     }
 
     private void comboBoxSettings() {
-        comboBox.addItem(WebPages.TableA_EN);
-        comboBox.addItem(WebPages.TableB_EN);
-        comboBox.addItem(WebPages.TableA_PL);
-        comboBox.addItem(WebPages.TableB_PL);
-        comboBox.setBounds(315, 60, 95, 25);
+        comboBox.addItem(WebPages.Tableaen);
+        comboBox.addItem(WebPages.Tableben);
+        comboBox.addItem(WebPages.Tableapl);
+        comboBox.addItem(WebPages.Tablebpl);
+        comboBox.setBounds(315, 60, 110, 25);
         frame.getContentPane().add(comboBox);
     }
 
     private void buttonsSettings() {
         downloadButton.setBounds(430, 60, 100, 25);
         frame.getContentPane().add(downloadButton);
+
+        searchBaseButton.setBounds(430, 25, 100, 25);
+        frame.getContentPane().add(searchBaseButton);
 
         saveButton.setBounds(535, 25, 100, 25);
         saveButton.setEnabled(false);
@@ -104,18 +110,25 @@ public class DataWindow {
     }
 
     private void fieldsSettings() {
-        pageField.setBounds(10, 25, 400, 25);
+        pageField.setBounds(10, 25, 300, 25);
         pageField.setEditable(false);
         frame.getContentPane().add(pageField);
 
         tableNameField.setBounds(10, 60, 300, 25);
         tableNameField.setEditable(false);
         frame.getContentPane().add(tableNameField);
+
+        searchField.setBounds(315, 25, 110, 25);
+        searchField.setToolTipText("np: yyyy-MM-dd");
+        frame.getContentPane().add(searchField);
     }
 
     private void labelsSettings() {
         author.setBounds(450, 450, 250, 25);
         frame.getContentPane().add(author);
+
+        searchLabel.setBounds(315, 0, 110, 25);
+        frame.getContentPane().add(searchLabel);
     }
 
     public void addDownloadButtonActionListener(ActionListener actionListener) {
@@ -124,6 +137,10 @@ public class DataWindow {
 
     public void addSaveButtonActionListener(ActionListener actionListener) {
         saveButton.addActionListener(actionListener);
+    }
+
+    public void addSearchInBaseButtonActionListener(ActionListener actionListener) {
+        searchBaseButton.addActionListener(actionListener);
     }
 
     public void addClearButtonActionListener(ActionListener actionListener) {
@@ -162,8 +179,16 @@ public class DataWindow {
         return frame;
     }
 
-    public JTextField getTableNameField(){
+    public JTextField getTableNameField() {
         return tableNameField;
+    }
+
+    public String getSearchFieldText() {
+        return searchField.getText();
+    }
+
+    public JComboBox getComboBox() {
+        return comboBox;
     }
 
     public String getSourceUrl() {

@@ -26,12 +26,14 @@ public class DataWindowManager {
     public DataWindowManager(DataWindow dataWindow) {
         this.dataWindow = dataWindow;
         addButtonsListeners();
+        createTableModel();
     }
 
     private void addButtonsListeners() {
         downloadDataButtonListener();
         saveDataButtonListener();
         clearDataButtonListener();
+        searchDataInBaseButtonListener();
     }
 
     private void downloadDataButtonListener() {
@@ -41,9 +43,13 @@ public class DataWindowManager {
                     parserData = new ParserData(new DownloadData(dataWindow.getSourceUrl()).toString());
                     dataWindow.setSaveButtonOn();
                     dataWindow.setClearButtonOn();
-                    createTableModel();
                     refreshTable();
-                    showDataInTable();
+
+                    ArrayList<ExchangeRates> exchangeRates = parserData.convertToObject();
+                    for (ExchangeRates e : exchangeRates) {
+                        DataBaseHelper.create(e, dataWindow.getComboBox().getSelectedItem().toString());
+                    }
+                    showDataInTable(exchangeRates);
                     dataWindow.getTableNameField().setText(parserData.getTableName());
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -73,6 +79,19 @@ public class DataWindowManager {
         });
     }
 
+    private void searchDataInBaseButtonListener() {
+        dataWindow.addSearchInBaseButtonActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!dataWindow.getSearchFieldText().equals("")) {
+                    refreshTable();
+                    showDataInTable(DataBaseHelper.findByDate(dataWindow.getSearchFieldText()));
+                } else
+                    JOptionPane.showMessageDialog(null, "Podaj date do wyszukania w formacie: yyyy-MM-dd,\noraz wybierz odpowiednia tabele z comboboxa.");
+            }
+        });
+    }
+
     private void clearDataButtonListener() {
         dataWindow.addClearButtonActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -87,14 +106,14 @@ public class DataWindowManager {
         model = (DefaultTableModel) dataWindow.getTable().getModel();
     }
 
-    private void showDataInTable() {
+    private void showDataInTable(ArrayList list) {
         try {
-            ArrayList<ExchangeRates> list = parserData.convertToObject();
+            ArrayList<ExchangeRates> listExchangeRates = list;
             Object[] row = new Object[3];
             for (int i = 0; i < list.size(); i++) {
-                row[0] = list.get(i).getCurrency();
-                row[1] = list.get(i).getCode();
-                row[2] = list.get(i).getMidRate();
+                row[0] = listExchangeRates.get(i).getCurrency();
+                row[1] = listExchangeRates.get(i).getCode();
+                row[2] = listExchangeRates.get(i).getMidRate();
                 model.addRow(row);
             }
         } catch (Exception e) {

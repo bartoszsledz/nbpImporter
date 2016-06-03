@@ -23,6 +23,7 @@ public class ParserData {
 
     /**
      * This is the constructor who gets all the code page as String from {@link DownloadData} class.
+     *
      * @param source - page source in the form of String.
      */
     public ParserData(String source) {
@@ -31,6 +32,7 @@ public class ParserData {
 
     /**
      * This is the main method converts the data to objects {@link ExchangeRates}.
+     *
      * @return a list of exchange rates from web page.
      */
     public ArrayList<ExchangeRates> convertToObject() {
@@ -40,10 +42,11 @@ public class ParserData {
         for (Element row : inputElements) {
             Elements elements = row.select("td");
             exchangeRates = new ExchangeRates();
-
             exchangeRates.setCurrency(elements.get(TableSections.CURRENCY).text());
             exchangeRates.setCode(elements.get(TableSections.CODE).text());
             exchangeRates.setMidRate(Double.parseDouble(elements.get(TableSections.MID_RATE).text()));
+            exchangeRates.setTableName(helpToGetTableName(document.select("p[class=\"nag\"]").text(), 24));
+            exchangeRates.setDate(helpToGetDate(document.select("p[class=\"nag\"]").text(), 10));
             listOfExchangeRates.add(exchangeRates);
         }
         saveTableName();
@@ -59,6 +62,7 @@ public class ParserData {
 
     /**
      * This method provides a formatted list of data.
+     *
      * @return a formatted list of data.
      */
     public String getListOfExchangeRates() {
@@ -78,9 +82,18 @@ public class ParserData {
 
     /**
      * This method gets the name of the table.
+     *
      * @return table name.
      */
     public String getTableName() {
         return exchangeRates.getTableName();
+    }
+
+    public String helpToGetDate(String value, int length) {
+        return value.substring(value.length() - length);
+    }
+
+    public String helpToGetTableName(String value, int length) {
+        return value.substring(0, length);
     }
 }

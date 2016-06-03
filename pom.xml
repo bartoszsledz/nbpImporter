@@ -7,6 +7,7 @@
     <artifactId>CurrencyExchangeImporter</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -16,11 +17,12 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-
         </plugins>
+
     </build>
 
     <dependencies>
+
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
@@ -37,5 +39,18 @@
             <artifactId>commons-io</artifactId>
             <version>1.3.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.38</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.6.Final</version>
+        </dependency>
+
+
     </dependencies>
 </project>

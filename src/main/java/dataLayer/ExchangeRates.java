@@ -1,10 +1,34 @@
 package dataLayer;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tableapl")
+@SecondaryTables({
+        @SecondaryTable(name = "tablebpl"),
+        @SecondaryTable(name = "tableaen"),
+        @SecondaryTable(name = "tableben")
+})
 public class ExchangeRates {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "TableName")
     private String tableName;
+
+    @Column(name = "Date")
+    private String date;
+
+    @Column(name = "Currency")
     private String currency;
+
+    @Column(name = "Code")
     private String code;
+
+    @Column(name = "MidRate")
     private double midRate;
 
     public ExchangeRates() {
@@ -12,14 +36,31 @@ public class ExchangeRates {
 
     /**
      * This class stores information about exchange rates from page.
+     *
      * @param currency - currency name.
-     * @param code - currency code.
-     * @param midRate - average exchange rate.
+     * @param code     - currency code.
+     * @param midRate  - average exchange rate.
      */
     public ExchangeRates(String currency, String code, double midRate) {
         setCurrency(currency);
         setCode(code);
         setMidRate(midRate);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTableName() {
