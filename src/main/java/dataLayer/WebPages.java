@@ -1,10 +1,10 @@
 package dataLayer;
 
 public enum WebPages {
-    Tableaen("http://www.nbp.pl/homen.aspx?f=/kursy/ratesa.html"),
-    Tableben("http://www.nbp.pl/homen.aspx?f=/kursy/RatesB.html"),
-    Tableapl("http://www.nbp.pl/home.aspx?f=/kursy/kursya.html"),
-    Tablebpl("http://www.nbp.pl/home.aspx?f=/kursy/kursyb.html");
+    TableA_EN("http://www.nbp.pl/homen.aspx?f=/kursy/ratesa.html"),
+    TableB_EN("http://www.nbp.pl/homen.aspx?f=/kursy/RatesB.html"),
+    TableA_PL("http://www.nbp.pl/home.aspx?f=/kursy/kursya.html"),
+    TableB_PL("http://www.nbp.pl/home.aspx?f=/kursy/kursyb.html");
 
     private String page;
 

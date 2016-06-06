@@ -6,12 +6,10 @@ import presentationLayer.DataWindow;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Manager class for {@link DataWindow}.
@@ -34,71 +32,71 @@ public class DataWindowManager {
         saveDataButtonListener();
         clearDataButtonListener();
         searchDataInBaseButtonListener();
+        saveDataBaseButtonListener();
     }
 
     private void downloadDataButtonListener() {
-        dataWindow.addDownloadButtonActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    parserData = new ParserData(new DownloadData(dataWindow.getSourceUrl()).toString());
-                    dataWindow.setSaveButtonOn();
-                    dataWindow.setClearButtonOn();
-                    refreshTable();
-
-                    ArrayList<ExchangeRates> exchangeRates = parserData.convertToObject();
-                    for (ExchangeRates e : exchangeRates) {
-                        DataBaseHelper.create(e, dataWindow.getComboBox().getSelectedItem().toString());
-                    }
-                    showDataInTable(exchangeRates);
-                    dataWindow.getTableNameField().setText(parserData.getTableName());
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                dataWindow.setTextOnTextField();
+        dataWindow.addDownloadButtonActionListener(arg0 -> {
+            try {
+                parserData = new ParserData(new DownloadData(dataWindow.getSourceUrl()).toString());
+                dataWindow.setSaveButtonOn();
+                dataWindow.setClearButtonOn();
+                dataWindow.setSaveDataBaseButtonOn();
+                refreshTable();
+                showDataInTable(parserData.convertToObject());
+                parserData.setTableName();
+                dataWindow.getTableNameField().setText(parserData.getTableName());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
+            dataWindow.setTextOnTextField();
         });
     }
 
     private void saveDataButtonListener() {
-        dataWindow.addSaveButtonActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                JFileChooser jFileChooser = new JFileChooser();
-                jFileChooser.setSelectedFile(new File("ExchangeRatesBNP.txt"));
-                jFileChooser.setCurrentDirectory(new File("."));
-                int userSelection = jFileChooser.showSaveDialog(dataWindow.getFrame());
+        dataWindow.addSaveButtonActionListener(arg0 -> {
+            JFileChooser jFileChooser = new JFileChooser();
+            jFileChooser.setSelectedFile(new File("ExchangeRatesBNP.txt"));
+            jFileChooser.setCurrentDirectory(new File("."));
+            int userSelection = jFileChooser.showSaveDialog(dataWindow.getFrame());
 
-                if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    File fileToSave = jFileChooser.getSelectedFile();
-                    try {
-                        FileUtils.writeStringToFile(fileToSave, parserData.getListOfExchangeRates(), "UTF-8");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = jFileChooser.getSelectedFile();
+                try {
+                    FileUtils.writeStringToFile(fileToSave, parserData.getListOfExchangeRates(), "UTF-8");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
     }
 
+    private void saveDataBaseButtonListener() {
+        dataWindow.addSaveDataBaseButtonActionListener(e -> {
+            refreshTable();
+            List<ExchangeRates> exchangeRates = parserData.convertToObject();
+            DataBaseHelper.create(exchangeRates);
+            List<ExchangeRates> exchangeRatesFromDataBase = DataBaseHelper.getData();
+            showDataInTable(exchangeRatesFromDataBase);
+        });
+    }
+
     private void searchDataInBaseButtonListener() {
-        dataWindow.addSearchInBaseButtonActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!dataWindow.getSearchFieldText().equals("")) {
-                    refreshTable();
-                    showDataInTable(DataBaseHelper.findByDate(dataWindow.getSearchFieldText()));
-                } else
-                    JOptionPane.showMessageDialog(null, "Podaj date do wyszukania w formacie: yyyy-MM-dd,\noraz wybierz odpowiednia tabele z comboboxa.");
-            }
+        dataWindow.addSearchInBaseButtonActionListener(e -> {
+            refreshTable();
+            if (!dataWindow.getSearchFieldText().equals("")) {
+                showDataInTable(DataBaseHelper.findByDate(dataWindow.getSearchFieldText()));
+            } else
+                JOptionPane.showMessageDialog(null, "Podaj date do wyszukania w formacie: yyyy-MM-dd,\noraz wybierz odpowiednia tabele z comboboxa.");
         });
     }
 
     private void clearDataButtonListener() {
-        dataWindow.addClearButtonActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                refreshTable();
-                dataWindow.setSaveButtonOff();
-                dataWindow.setClearButtonOff();
-            }
+        dataWindow.addClearButtonActionListener(arg0 -> {
+            refreshTable();
+            dataWindow.setSaveButtonOff();
+            dataWindow.setClearButtonOff();
+            dataWindow.setSaveDataBaseButtonOff();
         });
     }
 
@@ -106,14 +104,17 @@ public class DataWindowManager {
         model = (DefaultTableModel) dataWindow.getTable().getModel();
     }
 
-    private void showDataInTable(ArrayList list) {
+    private void showDataInTable(List list) {
         try {
-            ArrayList<ExchangeRates> listExchangeRates = list;
-            Object[] row = new Object[3];
+            List<ExchangeRates> listExchangeRates = list;
+            Object[] row = new Object[6];
             for (int i = 0; i < list.size(); i++) {
                 row[0] = listExchangeRates.get(i).getCurrency();
                 row[1] = listExchangeRates.get(i).getCode();
                 row[2] = listExchangeRates.get(i).getMidRate();
+                row[3] = listExchangeRates.get(i).getDate();
+                row[4] = listExchangeRates.get(i).getTableName();
+                row[5] = listExchangeRates.get(i).getTableType();
                 model.addRow(row);
             }
         } catch (Exception e) {

@@ -3,12 +3,7 @@ package dataLayer;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tableapl")
-@SecondaryTables({
-        @SecondaryTable(name = "tablebpl"),
-        @SecondaryTable(name = "tableaen"),
-        @SecondaryTable(name = "tableben")
-})
+@Table(name = "exchangeRates")
 public class ExchangeRates {
 
     @Id
@@ -30,6 +25,9 @@ public class ExchangeRates {
 
     @Column(name = "MidRate")
     private double midRate;
+
+    @Column(name = "TableType")
+    private String tableType;
 
     public ExchangeRates() {
     }
@@ -95,6 +93,14 @@ public class ExchangeRates {
         this.midRate = midRate;
     }
 
+    public String getTableType() {
+        return tableType;
+    }
+
+    public void setTableType(String tableType) {
+        this.tableType = tableType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,7 +109,6 @@ public class ExchangeRates {
         ExchangeRates that = (ExchangeRates) o;
 
         if (Double.compare(that.midRate, midRate) != 0) return false;
-        if (currency != null ? !currency.equals(that.currency) : that.currency != null) return false;
         return code != null ? code.equals(that.code) : that.code == null;
 
     }
@@ -112,8 +117,7 @@ public class ExchangeRates {
     public int hashCode() {
         int result;
         long temp;
-        result = currency != null ? currency.hashCode() : 0;
-        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = code != null ? code.hashCode() : 0;
         temp = Double.doubleToLongBits(midRate);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
@@ -121,6 +125,6 @@ public class ExchangeRates {
 
     @Override
     public String toString() {
-        return String.format("Currency: %-45s Code: %-10s MidRate: %-1s", currency, code, midRate) + System.lineSeparator();
+        return String.format("Currency: %-45s Code: %-10s MidRate: %-1s Date: %-10s TableName: %-45s", currency, code, midRate, date, tableName) + System.lineSeparator();
     }
 }

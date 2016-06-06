@@ -51,6 +51,8 @@ public class ParserDataTest {
 
         //Act
         ExchangeRates expected = new ExchangeRates("Australian Dollar", "1 AUD", 2.9655);
+        expected.setTableName("Table No. 077/A/NBP/2016");
+        expected.setDate("2016-04-21");
 
         //Assert
         assertEquals(expected, actual);

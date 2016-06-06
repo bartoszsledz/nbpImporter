@@ -47,9 +47,9 @@ public class ParserData {
             exchangeRates.setMidRate(Double.parseDouble(elements.get(TableSections.MID_RATE).text()));
             exchangeRates.setTableName(helpToGetTableName(document.select("p[class=\"nag\"]").text(), 24));
             exchangeRates.setDate(helpToGetDate(document.select("p[class=\"nag\"]").text(), 10));
+            exchangeRates.setTableType(helpToSetTableType(document.select("p[class=\"head2\"]").text()));
             listOfExchangeRates.add(exchangeRates);
         }
-        saveTableName();
         return listOfExchangeRates;
     }
 
@@ -58,6 +58,18 @@ public class ParserData {
         Element table = document.select("table[class=\"pad5\"]").first();
         inputElements = table.getElementsByTag("tr");
         inputElements.remove(0);
+    }
+
+    private String helpToGetDate(String value, int length) {
+        return value.substring(value.length() - length);
+    }
+
+    private String helpToGetTableName(String value, int length) {
+        return value.substring(0, length);
+    }
+
+    private String helpToSetTableType(String value){
+        return value.substring(value.length() - 1);
     }
 
     /**
@@ -76,7 +88,7 @@ public class ParserData {
     /**
      * This method sets the name of the table from web page.
      */
-    public void saveTableName() {
+    public void setTableName() {
         exchangeRates.setTableName(document.select("p[class=\"nag\"]").text());
     }
 
@@ -87,13 +99,5 @@ public class ParserData {
      */
     public String getTableName() {
         return exchangeRates.getTableName();
-    }
-
-    public String helpToGetDate(String value, int length) {
-        return value.substring(value.length() - length);
-    }
-
-    public String helpToGetTableName(String value, int length) {
-        return value.substring(0, length);
     }
 }

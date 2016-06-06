@@ -10,8 +10,7 @@
         <property name="hibernate.connection.username">user</property>
         <property name="hibernate.connection.password">user123</property>
 
-        <property name="show_sql">true</property>
-        <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        <property name="hibernate.connection.release_mode">on_close</property>
 
         <mapping class="dataLayer.ExchangeRates"></mapping>
     </session-factory>

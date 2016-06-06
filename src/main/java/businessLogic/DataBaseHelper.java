@@ -7,14 +7,18 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseHelper {
 
     public static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration().configure();
-        //configuration.configure(Paths.get("D:\\Programy\\IntelliJIDEA\\Projekty\\NBPImporter\\src\\resources\\hibernate.cfg.xml").toFile());
+        Configuration configuration = new Configuration();
+        String hibernatePropsFilePath = "src/resources/hibernate.cfg.xml";
+        File hibernatePropsFile = new File(hibernatePropsFilePath);
+        configuration.configure(hibernatePropsFile);
+
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties());
         SessionFactory sessionFactory = configuration
@@ -22,13 +26,19 @@ public class DataBaseHelper {
         return sessionFactory;
     }
 
-    public static int create(ExchangeRates exchangeRates, String table) {
+    public static void create(List<ExchangeRates> exchangeRates) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(table, exchangeRates);
+        exchangeRates.forEach(session::save);
         session.getTransaction().commit();
         session.close();
-        return exchangeRates.getId();
+    }
+
+    public static List getData() {
+        Session session = getSessionFactory().openSession();
+        List exchangeRates = session.createCriteria(ExchangeRates.class).list();
+        session.close();
+        return exchangeRates;
     }
 
     public static ExchangeRates findByID(int id) {

@@ -3,6 +3,7 @@ package presentationLayer;
 import dataLayer.WebPages;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -14,17 +15,18 @@ import java.awt.event.ActionListener;
 public class DataWindow {
 
     private final int WIDTH = 650;
-    private final int HEIGHT = 500;
+    private final int HEIGHT = 530;
 
     private JFrame frame;
     private JPanel panel;
     private JScrollPane scrollPane;
-    private JButton downloadButton, saveButton, clearButton, searchBaseButton;
+    private JButton downloadButton, saveButton, clearButton, searchBaseButton, saveDataBaseButton;
     private JTable table;
     private DefaultTableModel model;
     private JComboBox<WebPages> comboBox;
     private JLabel author, searchLabel;
     private JTextField pageField, tableNameField, searchField;
+    private DefaultTableCellRenderer renderer;
 
     WebPages webPages;
 
@@ -51,9 +53,11 @@ public class DataWindow {
         searchBaseButton = new JButton("Search");
         downloadButton = new JButton("Download");
         saveButton = new JButton("Save to file");
+        saveDataBaseButton = new JButton("Save to base");
         clearButton = new JButton("Clear");
         author = new JLabel("Created by Bartosz Śledź 2016");
         searchLabel = new JLabel("np: 2016-11-06");
+        renderer = new DefaultTableCellRenderer();
         comboBox = new JComboBox();
         pageField = new JTextField();
         searchField = new JTextField();
@@ -63,7 +67,7 @@ public class DataWindow {
     }
 
     private void frameSettings() {
-        scrollPane.setBounds(10, 100, 625, 350);
+        scrollPane.setBounds(10, 130, 625, 350);
         frame.setContentPane(panel);
         frame.getContentPane().add(scrollPane);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -77,34 +81,52 @@ public class DataWindow {
     }
 
     private void comboBoxSettings() {
-        comboBox.addItem(WebPages.Tableaen);
-        comboBox.addItem(WebPages.Tableben);
-        comboBox.addItem(WebPages.Tableapl);
-        comboBox.addItem(WebPages.Tablebpl);
+        comboBox.addItem(WebPages.TableA_EN);
+        comboBox.addItem(WebPages.TableB_EN);
+        comboBox.addItem(WebPages.TableA_PL);
+        comboBox.addItem(WebPages.TableB_PL);
         comboBox.setBounds(315, 60, 110, 25);
         frame.getContentPane().add(comboBox);
     }
 
     private void buttonsSettings() {
-        downloadButton.setBounds(430, 60, 100, 25);
+        downloadButton.setBounds(430, 60, 90, 25);
         frame.getContentPane().add(downloadButton);
 
-        searchBaseButton.setBounds(430, 25, 100, 25);
+        searchBaseButton.setBounds(430, 25, 90, 25);
         frame.getContentPane().add(searchBaseButton);
 
-        saveButton.setBounds(535, 25, 100, 25);
+        saveButton.setBounds(525, 25, 110, 25);
         saveButton.setEnabled(false);
         frame.getContentPane().add(saveButton);
 
-        clearButton.setBounds(535, 60, 100, 25);
+        clearButton.setBounds(525, 95, 110, 25);
         clearButton.setEnabled(false);
         frame.getContentPane().add(clearButton);
+
+        saveDataBaseButton.setBounds(525, 60, 110, 25);
+        saveDataBaseButton.setEnabled(false);
+        frame.getContentPane().add(saveDataBaseButton);
     }
 
     private void tableSettings() {
         model.addColumn("Currency");
         model.addColumn("Code");
         model.addColumn("MidRate");
+        model.addColumn("Date");
+        model.addColumn("TableName");
+        model.addColumn("TableType");
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.getColumnModel().getColumn(0).setPreferredWidth(140);
+        table.getColumnModel().getColumn(1).setPreferredWidth(87);
+        table.getColumnModel().getColumn(2).setPreferredWidth(70);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        table.getColumnModel().getColumn(4).setPreferredWidth(160);
+        table.getColumnModel().getColumn(5).setPreferredWidth(70);
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < model.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
         table.setEnabled(false);
         scrollPane.setViewportView(table);
     }
@@ -124,7 +146,7 @@ public class DataWindow {
     }
 
     private void labelsSettings() {
-        author.setBounds(450, 450, 250, 25);
+        author.setBounds(450, 480, 250, 25);
         frame.getContentPane().add(author);
 
         searchLabel.setBounds(315, 0, 110, 25);
@@ -145,6 +167,10 @@ public class DataWindow {
 
     public void addClearButtonActionListener(ActionListener actionListener) {
         clearButton.addActionListener(actionListener);
+    }
+
+    public void addSaveDataBaseButtonActionListener(ActionListener actionListener) {
+        saveDataBaseButton.addActionListener(actionListener);
     }
 
     public void setTextOnTextField() {
@@ -169,6 +195,14 @@ public class DataWindow {
 
     public void setClearButtonOff() {
         clearButton.setEnabled(false);
+    }
+
+    public void setSaveDataBaseButtonOff() {
+        saveDataBaseButton.setEnabled(false);
+    }
+
+    public void setSaveDataBaseButtonOn() {
+        saveDataBaseButton.setEnabled(true);
     }
 
     public JTable getTable() {
