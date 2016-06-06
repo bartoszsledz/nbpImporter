@@ -20,7 +20,7 @@ public class DataWindow {
     private JFrame frame;
     private JPanel panel;
     private JScrollPane scrollPane;
-    private JButton downloadButton, saveButton, clearButton, searchBaseButton, saveDataBaseButton;
+    private JButton downloadButton, saveButton, clearButton, searchBaseButton, saveDataBaseButton, browseDataBaseButton;
     private JTable table;
     private DefaultTableModel model;
     private JComboBox<WebPages> comboBox;
@@ -54,9 +54,10 @@ public class DataWindow {
         downloadButton = new JButton("Download");
         saveButton = new JButton("Save to file");
         saveDataBaseButton = new JButton("Save to base");
+        browseDataBaseButton = new JButton("Browse");
         clearButton = new JButton("Clear");
         author = new JLabel("Created by Bartosz Śledź 2016");
-        searchLabel = new JLabel("np: 2016-11-06");
+        searchLabel = new JLabel("np: 2018-12-30");
         renderer = new DefaultTableCellRenderer();
         comboBox = new JComboBox();
         pageField = new JTextField();
@@ -107,6 +108,9 @@ public class DataWindow {
         saveDataBaseButton.setBounds(525, 60, 110, 25);
         saveDataBaseButton.setEnabled(false);
         frame.getContentPane().add(saveDataBaseButton);
+
+        browseDataBaseButton.setBounds(430, 95, 90, 25);
+        frame.getContentPane().add(browseDataBaseButton);
     }
 
     private void tableSettings() {
@@ -171,6 +175,10 @@ public class DataWindow {
 
     public void addSaveDataBaseButtonActionListener(ActionListener actionListener) {
         saveDataBaseButton.addActionListener(actionListener);
+    }
+
+    public void addBrowseDataBaseButtonActionListener(ActionListener actionListener) {
+        browseDataBaseButton.addActionListener(actionListener);
     }
 
     public void setTextOnTextField() {

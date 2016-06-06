@@ -8,7 +8,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseHelper {
@@ -48,10 +47,10 @@ public class DataBaseHelper {
         return exchangeRates;
     }
 
-    public static ArrayList<ExchangeRates> findByDate(String date) {
+    public static List<ExchangeRates> findByDate(String date) {
         Session session = getSessionFactory().openSession();
         List exchangeRates = session.createCriteria(ExchangeRates.class).add(Restrictions.like("date", date)).list();
         session.close();
-        return (ArrayList) exchangeRates;
+        return exchangeRates;
     }
 }

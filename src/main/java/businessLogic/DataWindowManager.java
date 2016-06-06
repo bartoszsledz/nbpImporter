@@ -20,6 +20,7 @@ public class DataWindowManager {
 
     private ParserData parserData;
     private DataWindow dataWindow;
+    private boolean dataFromWeb = false;
 
     public DataWindowManager(DataWindow dataWindow) {
         this.dataWindow = dataWindow;
@@ -33,6 +34,7 @@ public class DataWindowManager {
         clearDataButtonListener();
         searchDataInBaseButtonListener();
         saveDataBaseButtonListener();
+        browseDataBaseButtonListener();
     }
 
     private void downloadDataButtonListener() {
@@ -46,6 +48,7 @@ public class DataWindowManager {
                 showDataInTable(parserData.convertToObject());
                 parserData.setTableName();
                 dataWindow.getTableNameField().setText(parserData.getTableName());
+                dataFromWeb = true;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -62,10 +65,18 @@ public class DataWindowManager {
 
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = jFileChooser.getSelectedFile();
-                try {
-                    FileUtils.writeStringToFile(fileToSave, parserData.getListOfExchangeRates(), "UTF-8");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (dataFromWeb) {
+                    try {
+                        FileUtils.writeStringToFile(fileToSave, parserData.getListOfExchangeRates(), "UTF-8");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        FileUtils.writeStringToFile(fileToSave, String.valueOf(DataBaseHelper.getData()), "UTF-8");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -87,7 +98,17 @@ public class DataWindowManager {
             if (!dataWindow.getSearchFieldText().equals("")) {
                 showDataInTable(DataBaseHelper.findByDate(dataWindow.getSearchFieldText()));
             } else
-                JOptionPane.showMessageDialog(null, "Podaj date do wyszukania w formacie: yyyy-MM-dd,\noraz wybierz odpowiednia tabele z comboboxa.");
+                JOptionPane.showMessageDialog(null, "Podaj date do wyszukania w formacie: yyyy-MM-dd.");
+        });
+    }
+
+    private void browseDataBaseButtonListener() {
+        dataWindow.addBrowseDataBaseButtonActionListener(e -> {
+            refreshTable();
+            showDataInTable(DataBaseHelper.getData());
+            dataWindow.setClearButtonOn();
+            dataWindow.setSaveButtonOn();
+            dataFromWeb = false;
         });
     }
 
