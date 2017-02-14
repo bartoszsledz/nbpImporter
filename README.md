@@ -1,5 +1,5 @@
 # nbpImporter
- Simple importer echange rate from: nbp.pl
+Simple importer exchange rate from nbp.pl.
  
  ### Run
 
