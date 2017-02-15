@@ -1,7 +1,6 @@
 package businessLogic;
 
 import dataLayer.ExchangeRates;
-import org.apache.commons.io.FileUtils;
 import presentationLayer.DataWindow;
 
 import javax.swing.*;
@@ -9,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -19,10 +19,10 @@ public class DataWindowManager {
     private DefaultTableModel model;
 
     private ParserData parserData;
-    private DataWindow dataWindow;
+    private final DataWindow dataWindow;
     private boolean dataFromWeb = false;
 
-    public DataWindowManager(DataWindow dataWindow) {
+    public DataWindowManager(final DataWindow dataWindow) {
         this.dataWindow = dataWindow;
         addButtonsListeners();
         createTableModel();
@@ -43,13 +43,13 @@ public class DataWindowManager {
                 parserData = new ParserData(new DownloadData(dataWindow.getSourceUrl()).toString());
                 dataWindow.setSaveButtonOn();
                 dataWindow.setClearButtonOn();
-                dataWindow.setSaveDataBaseButtonOn();
+                // dataWindow.setSaveDataBaseButtonOn();
                 refreshTable();
                 showDataInTable(parserData.convertToObject());
                 parserData.setTableName();
                 dataWindow.getTableNameField().setText(parserData.getTableName());
                 dataFromWeb = true;
-            } catch (FileNotFoundException e) {
+            } catch (final FileNotFoundException e) {
                 e.printStackTrace();
             }
             dataWindow.setTextOnTextField();
@@ -58,23 +58,25 @@ public class DataWindowManager {
 
     private void saveDataButtonListener() {
         dataWindow.addSaveButtonActionListener(arg0 -> {
-            JFileChooser jFileChooser = new JFileChooser();
+            final JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.setSelectedFile(new File("ExchangeRatesBNP.txt"));
             jFileChooser.setCurrentDirectory(new File("."));
-            int userSelection = jFileChooser.showSaveDialog(dataWindow.getFrame());
+            final int userSelection = jFileChooser.showSaveDialog(dataWindow.getFrame());
 
             if (userSelection == JFileChooser.APPROVE_OPTION) {
-                File fileToSave = jFileChooser.getSelectedFile();
+                final File fileToSave = jFileChooser.getSelectedFile();
                 if (dataFromWeb) {
                     try {
-                        FileUtils.writeStringToFile(fileToSave, parserData.getListOfExchangeRates(), "UTF-8");
-                    } catch (IOException e) {
+                        saveInCsvFormat(fileToSave);
+                        //FileUtils.writeStringToFile(fileToSave, parserData.getListOfExchangeRates(), "UTF-8");
+                    } catch (final IOException e) {
                         e.printStackTrace();
                     }
                 } else {
                     try {
-                        FileUtils.writeStringToFile(fileToSave, String.valueOf(DataBaseHelper.getData()), "UTF-8");
-                    } catch (IOException e) {
+                        saveInCsvFormat(fileToSave);
+                        //FileUtils.writeStringToFile(fileToSave, String.valueOf(DataBaseHelper.getData()), "UTF-8");
+                    } catch (final IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -82,12 +84,40 @@ public class DataWindowManager {
         });
     }
 
+    private void saveInCsvFormat(final File fileToSave) throws FileNotFoundException {
+        final PrintWriter pw = new PrintWriter(fileToSave);
+        final StringBuilder sb = new StringBuilder();
+
+        final String FILE_HEADER = "Currency,Code,MidRate,Date,TableName,TableType";
+
+        sb.append(FILE_HEADER);
+        sb.append(System.lineSeparator());
+
+        parserData.getExchangeRates().forEach(exchangeRate -> {
+            sb.append(exchangeRate.getCurrency());
+            sb.append(',');
+            sb.append(exchangeRate.getCode());
+            sb.append(',');
+            sb.append(exchangeRate.getMidRate());
+            sb.append(',');
+            sb.append(exchangeRate.getDate());
+            sb.append(',');
+            sb.append(exchangeRate.getTableName());
+            sb.append(',');
+            sb.append(exchangeRate.getTableType());
+            sb.append(System.lineSeparator());
+        });
+
+        pw.write(sb.toString());
+        pw.close();
+    }
+
     private void saveDataBaseButtonListener() {
         dataWindow.addSaveDataBaseButtonActionListener(e -> {
             refreshTable();
-            List<ExchangeRates> exchangeRates = parserData.convertToObject();
+            final List<ExchangeRates> exchangeRates = parserData.convertToObject();
             DataBaseHelper.create(exchangeRates);
-            List<ExchangeRates> exchangeRatesFromDataBase = DataBaseHelper.getData();
+            final List<ExchangeRates> exchangeRatesFromDataBase = DataBaseHelper.getData();
             showDataInTable(exchangeRatesFromDataBase);
         });
     }
@@ -125,10 +155,10 @@ public class DataWindowManager {
         model = (DefaultTableModel) dataWindow.getTable().getModel();
     }
 
-    private void showDataInTable(List list) {
+    private void showDataInTable(final List list) {
         try {
-            List<ExchangeRates> listExchangeRates = list;
-            Object[] row = new Object[6];
+            final List<ExchangeRates> listExchangeRates = list;
+            final Object[] row = new Object[6];
             for (int i = 0; i < list.size(); i++) {
                 row[0] = listExchangeRates.get(i).getCurrency();
                 row[1] = listExchangeRates.get(i).getCode();
@@ -138,7 +168,7 @@ public class DataWindowManager {
                 row[5] = listExchangeRates.get(i).getTableType();
                 model.addRow(row);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }

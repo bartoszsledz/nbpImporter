@@ -14,28 +14,26 @@ import java.awt.event.ActionListener;
  */
 public class DataWindow {
 
-    private final int WIDTH = 650;
-    private final int HEIGHT = 530;
+    private static final int WIDTH = 650;
+    private static final int HEIGHT = 530;
 
     private JFrame frame;
-    private JPanel panel;
     private JScrollPane scrollPane;
     private JButton downloadButton, saveButton, clearButton, searchBaseButton, saveDataBaseButton, browseDataBaseButton;
     private JTable table;
-    private DefaultTableModel model;
     private JComboBox<WebPages> comboBox;
-    private JLabel author, searchLabel;
     private JTextField pageField, tableNameField, searchField;
-    private DefaultTableCellRenderer renderer;
 
-    WebPages webPages;
+    private WebPages webPages;
 
     public DataWindow() {
         initialize();
+
+        //set invisible buttons when no have database
+        guiWithoutDatabaseFunctions();
     }
 
     private void initialize() {
-        createAllComponents();
         frameSettings();
         defaultSizeFrame();
         buttonsSettings();
@@ -46,28 +44,10 @@ public class DataWindow {
         setVisibleFrame();
     }
 
-    private void createAllComponents() {
-        frame = new JFrame("ImporterNBP");
-        panel = new JPanel();
-        scrollPane = new JScrollPane();
-        searchBaseButton = new JButton("Search");
-        downloadButton = new JButton("Download");
-        saveButton = new JButton("Save to file");
-        saveDataBaseButton = new JButton("Save to base");
-        browseDataBaseButton = new JButton("Browse");
-        clearButton = new JButton("Clear");
-        author = new JLabel("Created by Bartosz Śledź 2016");
-        searchLabel = new JLabel("np: 2018-12-30");
-        renderer = new DefaultTableCellRenderer();
-        comboBox = new JComboBox();
-        pageField = new JTextField();
-        searchField = new JTextField();
-        tableNameField = new JTextField();
-        model = new DefaultTableModel();
-        table = new JTable(model);
-    }
-
     private void frameSettings() {
+        frame = new JFrame("ImporterNBP");
+        final JPanel panel = new JPanel();
+        scrollPane = new JScrollPane();
         scrollPane.setBounds(10, 130, 625, 350);
         frame.setContentPane(panel);
         frame.getContentPane().add(scrollPane);
@@ -77,11 +57,12 @@ public class DataWindow {
     }
 
     private void defaultSizeFrame() {
-        Point center = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+        final Point center = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
         frame.setBounds(center.x - WIDTH / 2, center.y - HEIGHT / 2, WIDTH, HEIGHT);
     }
 
     private void comboBoxSettings() {
+        comboBox = new JComboBox();
         comboBox.addItem(WebPages.TableA_EN);
         comboBox.addItem(WebPages.TableB_EN);
         comboBox.addItem(WebPages.TableA_PL);
@@ -91,29 +72,39 @@ public class DataWindow {
     }
 
     private void buttonsSettings() {
+        downloadButton = new JButton("Download");
         downloadButton.setBounds(430, 60, 90, 25);
         frame.getContentPane().add(downloadButton);
 
+        searchBaseButton = new JButton("Search");
         searchBaseButton.setBounds(430, 25, 90, 25);
         frame.getContentPane().add(searchBaseButton);
 
+        saveButton = new JButton("Save to file");
         saveButton.setBounds(525, 25, 110, 25);
         saveButton.setEnabled(false);
         frame.getContentPane().add(saveButton);
 
+        clearButton = new JButton("Clear");
         clearButton.setBounds(525, 95, 110, 25);
         clearButton.setEnabled(false);
         frame.getContentPane().add(clearButton);
 
+        saveDataBaseButton = new JButton("Save to base");
         saveDataBaseButton.setBounds(525, 60, 110, 25);
         saveDataBaseButton.setEnabled(false);
         frame.getContentPane().add(saveDataBaseButton);
 
+        browseDataBaseButton = new JButton("Browse");
         browseDataBaseButton.setBounds(430, 95, 90, 25);
         frame.getContentPane().add(browseDataBaseButton);
     }
 
     private void tableSettings() {
+        final DefaultTableModel model = new DefaultTableModel();
+        table = new JTable(model);
+        final DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+
         model.addColumn("Currency");
         model.addColumn("Code");
         model.addColumn("MidRate");
@@ -136,48 +127,53 @@ public class DataWindow {
     }
 
     private void fieldsSettings() {
+        pageField = new JTextField();
         pageField.setBounds(10, 25, 300, 25);
         pageField.setEditable(false);
         frame.getContentPane().add(pageField);
 
+        tableNameField = new JTextField();
         tableNameField.setBounds(10, 60, 300, 25);
         tableNameField.setEditable(false);
         frame.getContentPane().add(tableNameField);
 
+        searchField = new JTextField();
         searchField.setBounds(315, 25, 110, 25);
         searchField.setToolTipText("np: yyyy-MM-dd");
         frame.getContentPane().add(searchField);
     }
 
     private void labelsSettings() {
+        final JLabel author = new JLabel("Created by Bartosz Śledź 2016");
         author.setBounds(450, 480, 250, 25);
         frame.getContentPane().add(author);
 
+        final JLabel searchLabel = new JLabel("np: 2018-12-30");
         searchLabel.setBounds(315, 0, 110, 25);
         frame.getContentPane().add(searchLabel);
     }
 
-    public void addDownloadButtonActionListener(ActionListener actionListener) {
+    public void addDownloadButtonActionListener(final ActionListener actionListener) {
         downloadButton.addActionListener(actionListener);
     }
 
-    public void addSaveButtonActionListener(ActionListener actionListener) {
+    public void addSaveButtonActionListener(final ActionListener actionListener) {
         saveButton.addActionListener(actionListener);
     }
 
-    public void addSearchInBaseButtonActionListener(ActionListener actionListener) {
+    public void addSearchInBaseButtonActionListener(final ActionListener actionListener) {
         searchBaseButton.addActionListener(actionListener);
     }
 
-    public void addClearButtonActionListener(ActionListener actionListener) {
+    public void addClearButtonActionListener(final ActionListener actionListener) {
         clearButton.addActionListener(actionListener);
     }
 
-    public void addSaveDataBaseButtonActionListener(ActionListener actionListener) {
+    public void addSaveDataBaseButtonActionListener(final ActionListener actionListener) {
         saveDataBaseButton.addActionListener(actionListener);
     }
 
-    public void addBrowseDataBaseButtonActionListener(ActionListener actionListener) {
+    public void addBrowseDataBaseButtonActionListener(final ActionListener actionListener) {
         browseDataBaseButton.addActionListener(actionListener);
     }
 
@@ -185,7 +181,7 @@ public class DataWindow {
         pageField.setText(webPages.getPage());
     }
 
-    public void setVisibleFrame() {
+    private void setVisibleFrame() {
         frame.setVisible(true);
     }
 
@@ -229,12 +225,18 @@ public class DataWindow {
         return searchField.getText();
     }
 
-    public JComboBox getComboBox() {
-        return comboBox;
-    }
-
     public String getSourceUrl() {
         webPages = (WebPages) comboBox.getSelectedItem();
         return webPages.getPage();
+    }
+
+    /**
+     * Set not enable buttons and field if no have local database.
+     */
+    private void guiWithoutDatabaseFunctions() {
+        searchBaseButton.setEnabled(false);
+        setSaveDataBaseButtonOff();
+        browseDataBaseButton.setEnabled(false);
+        searchField.setEditable(false);
     }
 }

@@ -13,7 +13,7 @@ import java.util.StringJoiner;
 /**
  * The main class responsible for the data is converted into object {@link ExchangeRates}.
  */
-public class ParserData {
+class ParserData {
 
     private final String source;
     private Elements inputElements;
@@ -26,7 +26,7 @@ public class ParserData {
      *
      * @param source - page source in the form of String.
      */
-    public ParserData(String source) {
+    ParserData(final String source) {
         this.source = source;
     }
 
@@ -35,18 +35,18 @@ public class ParserData {
      *
      * @return a list of exchange rates from web page.
      */
-    public ArrayList<ExchangeRates> convertToObject() {
+    ArrayList<ExchangeRates> convertToObject() {
         listOfExchangeRates = new ArrayList<>();
         importData();
 
-        for (Element row : inputElements) {
-            Elements elements = row.select("td");
+        for (final Element row : inputElements) {
+            final Elements elements = row.select("td");
             exchangeRates = new ExchangeRates();
             exchangeRates.setCurrency(elements.get(TableSections.CURRENCY).text());
             exchangeRates.setCode(elements.get(TableSections.CODE).text());
             exchangeRates.setMidRate(Double.parseDouble(elements.get(TableSections.MID_RATE).text()));
-            exchangeRates.setTableName(helpToGetTableName(document.select("p[class=\"nag\"]").text(), 24));
-            exchangeRates.setDate(helpToGetDate(document.select("p[class=\"nag\"]").text(), 10));
+            exchangeRates.setTableName(helpToGetTableName(document.select("p[class=\"nag\"]").text()));
+            exchangeRates.setDate(helpToGetDate(document.select("p[class=\"nag\"]").text()));
             exchangeRates.setTableType(helpToSetTableType(document.select("p[class=\"head2\"]").text()));
             listOfExchangeRates.add(exchangeRates);
         }
@@ -55,20 +55,20 @@ public class ParserData {
 
     private void importData() {
         document = Jsoup.parse(source);
-        Element table = document.select("table[class=\"pad5\"]").first();
+        final Element table = document.select("table[class=\"pad5\"]").first();
         inputElements = table.getElementsByTag("tr");
         inputElements.remove(0);
     }
 
-    private String helpToGetDate(String value, int length) {
-        return value.substring(value.length() - length);
+    private String helpToGetDate(final String value) {
+        return value.substring(value.length() - 10);
     }
 
-    private String helpToGetTableName(String value, int length) {
-        return value.substring(0, length);
+    private String helpToGetTableName(final String value) {
+        return value.substring(0, 24);
     }
 
-    private String helpToSetTableType(String value){
+    private String helpToSetTableType(final String value) {
         return value.substring(value.length() - 1);
     }
 
@@ -77,18 +77,22 @@ public class ParserData {
      *
      * @return a formatted list of data.
      */
-    public String getListOfExchangeRates() {
-        StringJoiner tmp = new StringJoiner("");
-        for (ExchangeRates exchangeRates : listOfExchangeRates) {
+    String getListOfExchangeRates() {
+        final StringJoiner tmp = new StringJoiner("");
+        for (final ExchangeRates exchangeRates : listOfExchangeRates) {
             tmp.add(exchangeRates.toString());
         }
         return tmp.toString();
     }
 
+    ArrayList<ExchangeRates> getExchangeRates() {
+        return listOfExchangeRates;
+    }
+
     /**
      * This method sets the name of the table from web page.
      */
-    public void setTableName() {
+    void setTableName() {
         exchangeRates.setTableName(document.select("p[class=\"nag\"]").text());
     }
 
@@ -97,7 +101,7 @@ public class ParserData {
      *
      * @return table name.
      */
-    public String getTableName() {
+    String getTableName() {
         return exchangeRates.getTableName();
     }
 }

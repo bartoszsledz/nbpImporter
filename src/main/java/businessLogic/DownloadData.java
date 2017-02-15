@@ -16,26 +16,27 @@ public class DownloadData {
 
     /**
      * Constructor , which gets the address of the page.
+     *
      * @param sourcePath - address.
      * @throws FileNotFoundException when the path is invalid.
      */
-    DownloadData(String sourcePath) throws FileNotFoundException {
+    DownloadData(final String sourcePath) throws FileNotFoundException {
         sourceContent = getDataFromSource(sourcePath);
     }
 
-    private String getDataFromSource(String sourcePath) throws FileNotFoundException {
-        BufferedReader bufferedReader;
-        StringBuilder stringBuilder = new StringBuilder();
+    private String getDataFromSource(final String sourcePath) throws FileNotFoundException {
+        final BufferedReader bufferedReader;
+        final StringBuilder stringBuilder = new StringBuilder();
 
         try {
             String currentLine;
             bufferedReader = new BufferedReader(new InputStreamReader(new URL(sourcePath).openStream(), "UTF-8"));
             while ((currentLine = bufferedReader.readLine()) != null) {
-                stringBuilder.append(currentLine + System.lineSeparator());
+                stringBuilder.append(currentLine).append(System.lineSeparator());
             }
             bufferedReader.close();
             return stringBuilder.toString().replace(",", ".");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             JOptionPane.showMessageDialog(null, "Error 404 / Page not found.");
         }
         throw new FileNotFoundException();
