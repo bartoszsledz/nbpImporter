@@ -39,7 +39,7 @@ public class ExchangeRates {
      * @param code     - currency code.
      * @param midRate  - average exchange rate.
      */
-    public ExchangeRates(String currency, String code, double midRate) {
+    public ExchangeRates(final String currency, final String code, final double midRate) {
         setCurrency(currency);
         setCode(code);
         setMidRate(midRate);
@@ -49,7 +49,7 @@ public class ExchangeRates {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -57,7 +57,7 @@ public class ExchangeRates {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(final String date) {
         this.date = date;
     }
 
@@ -65,7 +65,7 @@ public class ExchangeRates {
         return tableName;
     }
 
-    public void setTableName(String tableName) {
+    public void setTableName(final String tableName) {
         this.tableName = tableName;
     }
 
@@ -73,7 +73,7 @@ public class ExchangeRates {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(final String currency) {
         this.currency = currency;
     }
 
@@ -81,7 +81,7 @@ public class ExchangeRates {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(final String code) {
         this.code = code;
     }
 
@@ -89,7 +89,7 @@ public class ExchangeRates {
         return midRate;
     }
 
-    public void setMidRate(double midRate) {
+    public void setMidRate(final double midRate) {
         this.midRate = midRate;
     }
 
@@ -97,16 +97,16 @@ public class ExchangeRates {
         return tableType;
     }
 
-    public void setTableType(String tableType) {
+    public void setTableType(final String tableType) {
         this.tableType = tableType;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ExchangeRates that = (ExchangeRates) o;
+        final ExchangeRates that = (ExchangeRates) o;
 
         if (Double.compare(that.midRate, midRate) != 0) return false;
         return code != null ? code.equals(that.code) : that.code == null;
@@ -116,7 +116,7 @@ public class ExchangeRates {
     @Override
     public int hashCode() {
         int result;
-        long temp;
+        final long temp;
         result = code != null ? code.hashCode() : 0;
         temp = Double.doubleToLongBits(midRate);
         result = 31 * result + (int) (temp ^ (temp >>> 32));

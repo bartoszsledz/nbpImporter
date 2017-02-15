@@ -12,44 +12,42 @@ import java.util.List;
 
 public class DataBaseHelper {
 
-    public static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration();
-        String hibernatePropsFilePath = "src/resources/hibernate.cfg.xml";
-        File hibernatePropsFile = new File(hibernatePropsFilePath);
+    private static SessionFactory getSessionFactory() {
+        final Configuration configuration = new Configuration();
+        final String hibernatePropsFilePath = "src/resources/hibernate.cfg.xml";
+        final File hibernatePropsFile = new File(hibernatePropsFilePath);
         configuration.configure(hibernatePropsFile);
 
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+        final StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties());
-        SessionFactory sessionFactory = configuration
-                .buildSessionFactory(builder.build());
-        return sessionFactory;
+        return configuration.buildSessionFactory(builder.build());
     }
 
-    public static void create(List<ExchangeRates> exchangeRates) {
-        Session session = getSessionFactory().openSession();
+    static void create(final List<ExchangeRates> exchangeRates) {
+        final Session session = getSessionFactory().openSession();
         session.beginTransaction();
         exchangeRates.forEach(session::save);
         session.getTransaction().commit();
         session.close();
     }
 
-    public static List getData() {
-        Session session = getSessionFactory().openSession();
-        List exchangeRates = session.createCriteria(ExchangeRates.class).list();
+    static List getData() {
+        final Session session = getSessionFactory().openSession();
+        final List exchangeRates = session.createCriteria(ExchangeRates.class).list();
         session.close();
         return exchangeRates;
     }
 
-    public static ExchangeRates findByID(int id) {
-        Session session = getSessionFactory().openSession();
-        ExchangeRates exchangeRates = (ExchangeRates) session.load(ExchangeRates.class, id);
+    public static ExchangeRates findByID(final int id) {
+        final Session session = getSessionFactory().openSession();
+        final ExchangeRates exchangeRates = (ExchangeRates) session.load(ExchangeRates.class, id);
         session.close();
         return exchangeRates;
     }
 
-    public static List<ExchangeRates> findByDate(String date) {
-        Session session = getSessionFactory().openSession();
-        List exchangeRates = session.createCriteria(ExchangeRates.class).add(Restrictions.like("date", date)).list();
+    static List findByDate(final String date) {
+        final Session session = getSessionFactory().openSession();
+        final List exchangeRates = session.createCriteria(ExchangeRates.class).add(Restrictions.like("date", date)).list();
         session.close();
         return exchangeRates;
     }
