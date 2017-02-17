@@ -16,14 +16,18 @@ import java.util.List;
  */
 public class DataWindowManager {
 
+    private static final String NEW_FILE = "ExchangeRatesBNP.txt";
     private DefaultTableModel model;
-
-    private ParserData parserData;
-    private final DataWindow dataWindow;
     private boolean dataFromWeb = false;
 
-    public DataWindowManager(final DataWindow dataWindow) {
-        this.dataWindow = dataWindow;
+    private final ParserData parserData;
+    private final DownloadData downloadData;
+    private final DataWindow dataWindow;
+
+    public DataWindowManager() {
+        dataWindow = new DataWindow();
+        downloadData = new DownloadData();
+        parserData = new ParserData();
         addButtonsListeners();
         createTableModel();
     }
@@ -39,19 +43,17 @@ public class DataWindowManager {
 
     private void downloadDataButtonListener() {
         dataWindow.addDownloadButtonActionListener(arg0 -> {
-            try {
-                parserData = new ParserData(new DownloadData(dataWindow.getSourceUrl()).toString());
-                dataWindow.setSaveButtonOn();
-                dataWindow.setClearButtonOn();
-                // dataWindow.setSaveDataBaseButtonOn();
-                refreshTable();
-                showDataInTable(parserData.convertToObject());
-                parserData.setTableName();
-                dataWindow.getTableNameField().setText(parserData.getTableName());
-                dataFromWeb = true;
-            } catch (final FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            final String htmlInString = downloadData.getDataFromSource(dataWindow.getSourceUrl());
+            final List<ExchangeRates> exchangeRatesList = parserData.convertToObject(htmlInString);
+
+            dataWindow.setSaveButtonOn();
+            dataWindow.setClearButtonOn();
+            // dataWindow.setSaveDataBaseButtonOn();
+            refreshTable();
+            showDataInTable(exchangeRatesList);
+            parserData.setTableName();
+            dataWindow.getTableNameField().setText(parserData.getTableName());
+            dataFromWeb = true;
             dataWindow.setTextOnTextField();
         });
     }
@@ -59,7 +61,7 @@ public class DataWindowManager {
     private void saveDataButtonListener() {
         dataWindow.addSaveButtonActionListener(arg0 -> {
             final JFileChooser jFileChooser = new JFileChooser();
-            jFileChooser.setSelectedFile(new File("ExchangeRatesBNP.txt"));
+            jFileChooser.setSelectedFile(new File(NEW_FILE));
             jFileChooser.setCurrentDirectory(new File("."));
             final int userSelection = jFileChooser.showSaveDialog(dataWindow.getFrame());
 
@@ -115,10 +117,10 @@ public class DataWindowManager {
     private void saveDataBaseButtonListener() {
         dataWindow.addSaveDataBaseButtonActionListener(e -> {
             refreshTable();
-            final List<ExchangeRates> exchangeRates = parserData.convertToObject();
+            final String htmlInString = downloadData.getDataFromSource(dataWindow.getSourceUrl());
+            final List<ExchangeRates> exchangeRates = parserData.convertToObject(htmlInString);
             DataBaseHelper.create(exchangeRates);
-            final List<ExchangeRates> exchangeRatesFromDataBase = DataBaseHelper.getData();
-            showDataInTable(exchangeRatesFromDataBase);
+            showDataInTable(DataBaseHelper.getData());
         });
     }
 
@@ -155,17 +157,16 @@ public class DataWindowManager {
         model = (DefaultTableModel) dataWindow.getTable().getModel();
     }
 
-    private void showDataInTable(final List list) {
+    private void showDataInTable(final List<ExchangeRates> listExchangeRates) {
         try {
-            final List<ExchangeRates> listExchangeRates = list;
             final Object[] row = new Object[6];
-            for (int i = 0; i < list.size(); i++) {
-                row[0] = listExchangeRates.get(i).getCurrency();
-                row[1] = listExchangeRates.get(i).getCode();
-                row[2] = listExchangeRates.get(i).getMidRate();
-                row[3] = listExchangeRates.get(i).getDate();
-                row[4] = listExchangeRates.get(i).getTableName();
-                row[5] = listExchangeRates.get(i).getTableType();
+            for (final ExchangeRates listExchangeRate : listExchangeRates) {
+                row[0] = listExchangeRate.getCurrency();
+                row[1] = listExchangeRate.getCode();
+                row[2] = listExchangeRate.getMidRate();
+                row[3] = listExchangeRate.getDate();
+                row[4] = listExchangeRate.getTableName();
+                row[5] = listExchangeRate.getTableType();
                 model.addRow(row);
             }
         } catch (final Exception e) {

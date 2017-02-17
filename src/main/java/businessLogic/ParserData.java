@@ -15,29 +15,26 @@ import java.util.StringJoiner;
  */
 class ParserData {
 
-    private final String source;
-    private Elements inputElements;
     private Document document;
     private ArrayList<ExchangeRates> listOfExchangeRates;
     private ExchangeRates exchangeRates;
 
-    /**
-     * This is the constructor who gets all the code page as String from {@link DownloadData} class.
-     *
-     * @param source - page source in the form of String.
-     */
-    ParserData(final String source) {
-        this.source = source;
+    ParserData() {
     }
 
     /**
      * This is the main method converts the data to objects {@link ExchangeRates}.
      *
+     * @param dataToConvert String html resource.
      * @return a list of exchange rates from web page.
      */
-    ArrayList<ExchangeRates> convertToObject() {
+    ArrayList<ExchangeRates> convertToObject(final String dataToConvert) {
         listOfExchangeRates = new ArrayList<>();
-        importData();
+        document = Jsoup.parse(dataToConvert);
+
+        final Element table = document.select("table[class=\"pad5\"]").first();
+        final Elements inputElements = table.getElementsByTag("tr");
+        inputElements.remove(0);
 
         for (final Element row : inputElements) {
             final Elements elements = row.select("td");
@@ -51,13 +48,6 @@ class ParserData {
             listOfExchangeRates.add(exchangeRates);
         }
         return listOfExchangeRates;
-    }
-
-    private void importData() {
-        document = Jsoup.parse(source);
-        final Element table = document.select("table[class=\"pad5\"]").first();
-        inputElements = table.getElementsByTag("tr");
-        inputElements.remove(0);
     }
 
     private String helpToGetDate(final String value) {
