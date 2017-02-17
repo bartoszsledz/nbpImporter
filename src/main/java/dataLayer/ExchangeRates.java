@@ -29,9 +29,6 @@ public class ExchangeRates {
     @Column(name = "TableType")
     private String tableType;
 
-    public ExchangeRates() {
-    }
-
     /**
      * This class stores information about exchange rates from page.
      *
@@ -39,10 +36,16 @@ public class ExchangeRates {
      * @param code     - currency code.
      * @param midRate  - average exchange rate.
      */
-    public ExchangeRates(final String currency, final String code, final double midRate) {
+    public ExchangeRates(final String tableName, final String date, final String currency, final String code, final double midRate, final String tableType) {
+        setTableName(tableName);
+        setDate(date);
         setCurrency(currency);
         setCode(code);
         setMidRate(midRate);
+        setTableType(tableType);
+    }
+
+    public ExchangeRates() {
     }
 
     public int getId() {
@@ -108,23 +111,40 @@ public class ExchangeRates {
 
         final ExchangeRates that = (ExchangeRates) o;
 
+        if (id != that.id) return false;
         if (Double.compare(that.midRate, midRate) != 0) return false;
-        return code != null ? code.equals(that.code) : that.code == null;
-
+        if (tableName != null ? !tableName.equals(that.tableName) : that.tableName != null) return false;
+        if (date != null ? !date.equals(that.date) : that.date != null) return false;
+        if (currency != null ? !currency.equals(that.currency) : that.currency != null) return false;
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        return tableType != null ? tableType.equals(that.tableType) : that.tableType == null;
     }
 
     @Override
     public int hashCode() {
         int result;
         final long temp;
-        result = code != null ? code.hashCode() : 0;
+        result = id;
+        result = 31 * result + (tableName != null ? tableName.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (currency != null ? currency.hashCode() : 0);
+        result = 31 * result + (code != null ? code.hashCode() : 0);
         temp = Double.doubleToLongBits(midRate);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (tableType != null ? tableType.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("Currency: %-45s Code: %-10s MidRate: %-1s Date: %-10s TableName: %-45s", currency, code, midRate, date, tableName) + System.lineSeparator();
+        return "ExchangeRates{" +
+                "id=" + id +
+                ", tableName='" + tableName + '\'' +
+                ", date='" + date + '\'' +
+                ", currency='" + currency + '\'' +
+                ", code='" + code + '\'' +
+                ", midRate=" + midRate +
+                ", tableType='" + tableType + '\'' +
+                '}';
     }
 }

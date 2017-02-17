@@ -31,7 +31,7 @@ public class DataBaseHelper {
         session.close();
     }
 
-    static List getData() {
+    static List<ExchangeRates> getData() {
         final Session session = getSessionFactory().openSession();
         final List exchangeRates = session.createCriteria(ExchangeRates.class).list();
         session.close();
@@ -45,7 +45,7 @@ public class DataBaseHelper {
         return exchangeRates;
     }
 
-    static List findByDate(final String date) {
+    static List<ExchangeRates> findByDate(final String date) {
         final Session session = getSessionFactory().openSession();
         final List exchangeRates = session.createCriteria(ExchangeRates.class).add(Restrictions.like("date", date)).list();
         session.close();

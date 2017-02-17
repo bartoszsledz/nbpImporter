@@ -1,7 +1,6 @@
 package main;
 
 import businessLogic.DataWindowManager;
-import presentationLayer.DataWindow;
 
 /**
  * The NBPImporter program implements an application that
@@ -13,6 +12,6 @@ import presentationLayer.DataWindow;
  */
 public class Main {
     public static void main(final String[] args) {
-        new DataWindowManager(new DataWindow());
+        new DataWindowManager();
     }
 }
